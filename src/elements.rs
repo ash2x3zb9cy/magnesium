@@ -58,6 +58,17 @@ impl<'s> XmlElement<'s> {
     }
   }
 
+  /// Unwraps an `EmptyTag` variant into the inner `(name, attrs)` pair.
+  ///
+  /// ## Panics
+  /// If the variant isn't `EmptyTag` this will panic.
+  pub fn unwrap_empty_tag(&self) -> (&'s str, &'s str) {
+    match self {
+      Self::EmptyTag { name, attrs } => (name, attrs),
+      _ => panic!("unwrap_empty_tag on non-EmptyTag: {:?}", self),
+    }
+  }
+
   /// Unwraps an `EndTag` variant into the inner `name`.
   ///
   /// ## Panics
